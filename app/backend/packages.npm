@@ -1,0 +1,4 @@
+jsonwebtoken
+bcrypt
+express
+cors
