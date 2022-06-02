@@ -1,4 +1,7 @@
 jsonwebtoken
-bcrypt
-express
+@types/jsonwebtoken
+bcryptjs
+@types/bcryptjs
 cors
+@types/cors
+fs
