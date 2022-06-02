@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import * as Bcrypt from 'bcrypt';
+import * as Bcrypt from 'bcryptjs';
 import UserModel from '../models/user';
 import auth from '../config/jwtConfig';
 import IUser from '../interface';
