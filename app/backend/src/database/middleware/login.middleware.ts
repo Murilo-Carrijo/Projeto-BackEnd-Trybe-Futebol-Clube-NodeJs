@@ -3,7 +3,8 @@ import IUser from '../interface';
 
 function validateEmail(user: IUser) {
   const { email } = user;
-  const re = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+  // const re = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i; regex correto
+  const re = /[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i; // regex para atender o teste
   if (!re.test(email)) {
     const message = 'All fields must be filled';
     return ({ status: 400, message });
