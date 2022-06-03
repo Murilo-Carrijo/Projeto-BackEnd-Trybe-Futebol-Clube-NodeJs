@@ -6,10 +6,12 @@ const router = express.Router();
 
 const loginController = new LoginController();
 
-router.post(
-  '/',
-  validateLogin,
-  loginController.userLogin,
-);
+router
+  .post(
+    '/',
+    validateLogin,
+    loginController.userLogin,
+  )
+  .get('/validate', loginController.loginValidadte);
 
 export default router;

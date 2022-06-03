@@ -25,13 +25,13 @@ class App {
     this.app.use(accessControl);
     this.app.use(express.json());
     // ...
+    this.app.use('/login', LoginRouter);
   }
 
   // ...
   public start(PORT: string | number):void {
     // ...
     this.app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-    this.app.use('/login', LoginRouter);
   }
 }
 

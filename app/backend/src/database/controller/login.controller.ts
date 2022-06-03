@@ -20,6 +20,23 @@ class LoginController {
       next(e);
     }
   };
+
+  // public loginValidadte = async (req: Request, res: Response, next: NextFunction) => {
+  //   try {
+  //     const { authorization: token } = req.headers;
+
+  //     if (!token || token === '') {
+  //       return res.status(401).json({ message: 'Token not found' });
+  //     }
+
+  //     const role = await this.service.loginValidadte(token);
+  //     if (!role) return res.status(404).json({ message: 'Token is invalid!' });
+
+  //     return res.status(200).json(role);
+  //   } catch (e) {
+  //     next(e);
+  //   }
+  // };
 }
 
 export default LoginController;

@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import * as Bcrypt from 'bcryptjs';
-import UserModel from '../models/user';
+import UserModel from '../models/user.model';
 import auth from '../config/jwtConfig';
 import IUser from '../interface';
 
@@ -23,6 +23,14 @@ class UserServer {
       token,
     };
   };
+
+  // public loginValidadte = async (token: string): Promise<string | null> => {
+  //   const { email } = jwt.verify(token, auth.secret) as jwt.JwtPayload;
+  //   const user = await UserModel.findOne({ where: { email } });
+
+  //   if (user) return user.role;
+  //   return null;
+  // };
 }
 
 export default UserServer;
