@@ -21,22 +21,22 @@ class LoginController {
     }
   };
 
-  // public loginValidadte = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const { authorization: token } = req.headers;
+  public tokenValidate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const token = req.headers.authorization;
+      if (!token || token === '') {
+        return res.status(401).json({ message: 'Token not found' });
+      }
+      const role = await this.service.tokenValidate(token);
+      if (!role) {
+        return res.status(404).json({ message: 'Token is invalid!' });
+      }
 
-  //     if (!token || token === '') {
-  //       return res.status(401).json({ message: 'Token not found' });
-  //     }
-
-  //     const role = await this.service.loginValidadte(token);
-  //     if (!role) return res.status(404).json({ message: 'Token is invalid!' });
-
-  //     return res.status(200).json(role);
-  //   } catch (e) {
-  //     next(e);
-  //   }
-  // };
+      return res.status(200).json(role);
+    } catch (e) {
+      next(e);
+    }
+  };
 }
 
 export default LoginController;

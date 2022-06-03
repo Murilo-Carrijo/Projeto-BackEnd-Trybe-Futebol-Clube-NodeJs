@@ -94,13 +94,18 @@ describe('Verificando a rota Login', () => {
   });
 
   it('Caso o login já tenha sido feito e o token esteja correto', async () => {
-    chaiHttpResponse = await chai
+    const { body: { token }} = await chai
       .request(app)
-      .get('/login/validate')
+      .post('/login')
       .send({
         email: 'admin@admin.com',
         password: 'secret_admin'
       });
+
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('login/validate')
+      .set({ 'authorization': token})
   
      expect(chaiHttpResponse.status).to.be.equal(200);
      expect(chaiHttpResponse.body).to.have.property('role');

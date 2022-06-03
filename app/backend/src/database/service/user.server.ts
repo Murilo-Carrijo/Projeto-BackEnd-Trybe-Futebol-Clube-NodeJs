@@ -1,8 +1,7 @@
-import * as jwt from 'jsonwebtoken';
 import * as Bcrypt from 'bcryptjs';
 import UserModel from '../models/user.model';
-import auth from '../config/jwtConfig';
 import IUser from '../interface';
+import Token from '../utils/Token';
 
 class UserServer {
   public login = async (user: IUser) => {
@@ -12,7 +11,8 @@ class UserServer {
     if (!Bcrypt.compareSync(password, result.password)) {
       return false;
     }
-    const token = jwt.sign({ data: user }, auth.secret, auth.configs);
+
+    const token = await Token.create(result);
     return {
       user: {
         id: result.id,
@@ -24,13 +24,13 @@ class UserServer {
     };
   };
 
-  // public loginValidadte = async (token: string): Promise<string | null> => {
-  //   const { email } = jwt.verify(token, auth.secret) as jwt.JwtPayload;
-  //   const user = await UserModel.findOne({ where: { email } });
+  public tokenValidate = async (token: string) => {
+    const user = await Token.decode(token) as IUser;
+    const result = await UserModel.findOne({ where: { email: user.email } });
 
-  //   if (user) return user.role;
-  //   return null;
-  // };
+    if (result) return result.role;
+    return null;
+  };
 }
 
 export default UserServer;

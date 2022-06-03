@@ -10,8 +10,8 @@ router
   .post(
     '/',
     validateLogin,
-    loginController.userLogin,
+    (req, res, next) => loginController.userLogin(req, res, next),
   )
-  .get('/validate', loginController.loginValidadte);
+  .get('/validate', (req, res, next) => loginController.tokenValidate(req, res, next));
 
 export default router;
