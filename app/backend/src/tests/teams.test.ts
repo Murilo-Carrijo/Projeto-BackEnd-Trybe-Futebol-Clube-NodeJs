@@ -5,7 +5,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-// import UserModel from '../database/models/user.model';
+import TeamsModel from '../database/models/temas.model';
 
 import { Response } from 'superagent';
 
@@ -16,15 +16,15 @@ const { expect } = chai;
 const teams = [
   {
     id: 1,
-	teamName: "Avaí/Kindermann"
+	  teamName: "Avaí/Kindermann"
   },
   {
-	id: 2,
-	teamName: "Bahia"
+	  id: 2,
+	  teamName: "Bahia"
   },
   {
-	id: 3,
-	teamName: "Botafogo"
+	  id: 3,
+	  teamName: "Botafogo"
   },
 ];
 
