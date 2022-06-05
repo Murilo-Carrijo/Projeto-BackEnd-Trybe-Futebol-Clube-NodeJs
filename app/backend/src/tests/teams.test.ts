@@ -32,31 +32,30 @@ describe('Verificando a rota Teams', () => {
   let chaiHttpResponse: Response;
 
   before(async () => {
-    sinon.stub(TeamsModel, "findOne").resolves({ ...teams } as TeamsModel);
+    sinon.stub(TeamsModel, "findAll").resolves({ ... teams } as TeamsModel[]);
+    sinon.stub(TeamsModel, "findOne").resolves({ ...teams } as unknown as TeamsModel);
   });
 
   after(() => {
+    (TeamsModel.findAll as sinon.SinonStub).restore();
     (TeamsModel.findOne as sinon.SinonStub).restore();
   })
 
   it('Retorno de todos os times cadastrados', async () => {
     chaiHttpResponse = await chai
        .request(app)
-       .post('/teams');
+       .get('/teams');
 
     expect(chaiHttpResponse.status).to.be.equal(200);
-    expect(chaiHttpResponse.body).to.have.property('id');
-    expect(chaiHttpResponse.body).to.have.property('teamName');
+    expect(chaiHttpResponse.body).to.be.a('object');
   });
 
   it('Retorno do time selecionado pelo id', async () => {
     chaiHttpResponse = await chai
       .request(app)
-      .post('/teams/:id')
-      .set({ id: 1 });
+      .get('/teams/1');
 
     expect(chaiHttpResponse.status).to.be.equal(200);
-    expect(chaiHttpResponse.body).to.have.property('id');
-    expect(chaiHttpResponse.body).to.have.property('teamName');
+    expect(chaiHttpResponse.body).to.be.a('object');
   });
 });
