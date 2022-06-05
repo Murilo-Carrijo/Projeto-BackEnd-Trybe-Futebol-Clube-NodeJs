@@ -84,7 +84,7 @@ describe('Verificando a rota Login', () => {
     .request(app)
     .post('/login')
     .send({
-      email: 'admin',
+      email: '',
       password: 'secret_admin'
     });
 
@@ -105,7 +105,7 @@ describe('Verificando a rota Login', () => {
     chaiHttpResponse = await chai
       .request(app)
       .get('login/validate')
-      .set({ 'authorization': token})
+      .set({ authorization: token })
   
      expect(chaiHttpResponse.status).to.be.equal(200);
      expect(chaiHttpResponse.body).to.have.property('role');
