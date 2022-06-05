@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import UserServer from '../service/user.server';
+import UserServer from '../service/user.service';
 
 class LoginController {
   service: UserServer;
