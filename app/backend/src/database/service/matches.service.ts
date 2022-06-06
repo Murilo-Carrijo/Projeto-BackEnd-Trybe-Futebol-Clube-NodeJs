@@ -1,9 +1,16 @@
 import IMatches from '../interface/IMatches';
 import MatchesModel from '../models/matches.model';
 import Teams from '../models/temas.model';
+import TeamsService from './teams.service';
 
 class MatchesService {
-  public getAll = async () => {
+  teamsService: TeamsService;
+
+  constructor() {
+    this.teamsService = new TeamsService();
+  }
+
+  public getAll = async (): Promise<IMatches[] | boolean> => {
     const matches = await MatchesModel.findAll(
       { include: [
         { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
@@ -14,8 +21,28 @@ class MatchesService {
     return matches;
   };
 
-  public addMatche = async (matche: IMatches) => {
-    const newMatche = await MatchesModel.create(matche);
+  public getByTeams = async (matche: IMatches): Promise<IMatches | boolean> => {
+    const { homeTeam, awayTeam } = matche;
+    const findMatche = await MatchesModel.findOne({ where: { homeTeam, awayTeam } });
+    if (!findMatche) return false;
+    return findMatche;
+  };
+
+  public checkTeams = async (matche: IMatches) => {
+    const { homeTeam, awayTeam } = matche;
+    const checkHomeTeam = await this.teamsService.getById(homeTeam);
+    const checkAwayTeam = await this.teamsService.getById(awayTeam);
+    if (!checkHomeTeam || !checkAwayTeam) {
+      return false;
+    }
+    return true;
+  };
+
+  public addMatche = async (matche: IMatches): Promise<IMatches | null | boolean> => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = matche;
+    if (homeTeam === awayTeam) return null;
+    await MatchesModel.create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress });
+    const newMatche = await this.getByTeams(matche);
     return newMatche;
   };
 }

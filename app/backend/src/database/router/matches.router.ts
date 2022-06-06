@@ -5,6 +5,8 @@ const router = express.Router();
 
 const matchesController = new MatchesController();
 
-router.get('/', matchesController.getAll);
+router
+  .get('/', (req, res, next) => matchesController.getAll(req, res, next))
+  .post('/', (req, res, next) => matchesController.addMatche(req, res, next));
 
 export default router;

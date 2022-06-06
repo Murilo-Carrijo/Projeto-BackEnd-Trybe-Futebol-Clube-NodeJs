@@ -1,0 +1,1 @@
+/home/murilo/trybe/projetos/backend/sd-016-a-trybe-futebol-clube/app/backend/package.json

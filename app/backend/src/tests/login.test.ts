@@ -104,11 +104,10 @@ describe('Verificando a rota Login', () => {
 
     chaiHttpResponse = await chai
       .request(app)
-      .get('login/validate')
+      .get('/login/validate')
       .set({ authorization: token })
   
      expect(chaiHttpResponse.status).to.be.equal(200);
-     expect(chaiHttpResponse.body).to.have.property('role');
-     expect(chaiHttpResponse.body.role).to.be.equal('admin');
+     expect(chaiHttpResponse.body).to.be.equal('admin');
     });
 });
