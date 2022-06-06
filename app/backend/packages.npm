@@ -1,7 +1,0 @@
-jsonwebtoken
-@types/jsonwebtoken
-bcryptjs
-@types/bcryptjs
-cors
-@types/cors
-fs
