@@ -1,6 +1,5 @@
 import ITeams from '../interface/ITeams';
 import TeamsModel from '../models/temas.model';
-// import ITeams from '../interface/ITeams';
 
 class TeamsService {
   public getAll = async (): Promise<ITeams[] | boolean> => {

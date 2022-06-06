@@ -1,4 +1,4 @@
-import { Model, INTEGER } from 'sequelize';
+import { Model, INTEGER, BOOLEAN } from 'sequelize';
 import db from '.';
 import Teams from './temas.model';
 
@@ -35,13 +35,13 @@ Matches.init({
     allowNull: false,
   },
   inProgress: {
-    type: INTEGER,
+    type: BOOLEAN,
     allowNull: false,
   },
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'metches',
+  modelName: 'matches',
   timestamps: false,
 });
 
