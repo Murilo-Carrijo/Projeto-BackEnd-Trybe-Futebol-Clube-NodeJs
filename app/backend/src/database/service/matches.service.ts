@@ -65,6 +65,21 @@ class MatchesService {
     }
     return false;
   };
+
+  public updateScoreboard = async (id: number, homeTeamGoals: number, awayTeamGoals: number) => {
+    const getById = await MatchesModel.findByPk(id);
+    if (!getById) return null;
+
+    if (getById) {
+      await MatchesModel.upsert({
+        id,
+        homeTeamGoals,
+        awayTeamGoals,
+      });
+      return getById;
+    }
+    return false;
+  };
 }
 
 export default MatchesService;

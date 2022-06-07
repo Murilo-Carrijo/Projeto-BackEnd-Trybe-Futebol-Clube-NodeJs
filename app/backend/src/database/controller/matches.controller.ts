@@ -5,16 +5,18 @@ import LoginController from './login.controller';
 class MatchesController {
   service: MatchesService;
   loginController: LoginController;
+  notFound: string;
 
   constructor() {
     this.service = new MatchesService();
     this.loginController = new LoginController();
+    this.notFound = '"Matches" not found!';
   }
 
   public getAll = async (_req: Request, res: Response, next: NextFunction) => {
     try {
       const matches = await this.service.getAll();
-      if (!matches) return res.status(404).json({ message: '"Matches" not found!' });
+      if (!matches) return res.status(404).json({ message: this.notFound });
       return res.status(200).json(matches);
     } catch (e) {
       next(e);
@@ -50,8 +52,20 @@ class MatchesController {
     const { id } = req.params;
     try {
       const statusMatche = await this.service.updateStatus(Number(id));
-      if (!statusMatche) return res.status(404).json({ message: '"Matches" not found!' });
+      if (!statusMatche) return res.status(404).json({ message: this.notFound });
       return res.status(200).json({ message: 'Finished' });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  public updateScoreboard = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    try {
+      const result = await this.service.updateScoreboard(Number(id), homeTeamGoals, awayTeamGoals);
+      if (!result) return res.status(404).json({ message: this.notFound });
+      return res.status(200).json(result);
     } catch (e) {
       next(e);
     }
