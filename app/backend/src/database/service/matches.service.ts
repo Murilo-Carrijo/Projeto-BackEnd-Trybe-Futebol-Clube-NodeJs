@@ -45,9 +45,9 @@ class MatchesService {
   };
 
   public addMatche = async (matche: IMatches): Promise<IMatches | null | boolean> => {
-    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = matche;
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = matche;
     if (homeTeam === awayTeam) return null;
-    await MatchesModel.create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress });
+    await MatchesModel.create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress: 1 });
     const newMatche = await this.getByTeams(matche);
     return newMatche;
   };
