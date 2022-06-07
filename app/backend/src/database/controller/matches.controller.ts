@@ -24,13 +24,22 @@ class MatchesController {
   public addMatche = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const dataMatche = req.body;
+      const token = req.headers.authorization;
+
+      const checkToken = await this.service.tokenValidate(token as string);
+      if (!checkToken) {
+        return res.status(404).json({ message: 'Token is invalid!' });
+      }
+
       const newMatche = await this.service.addMatche(dataMatche);
       if (newMatche === null) {
         return res.status(401)
           .json({ message: 'It is not possible to create a match with two equal teams' });
       }
+
       const checkTeams = await this.service.checkTeams(dataMatche);
       if (!checkTeams) return res.status(404).json({ message: 'There is no team with such id!' });
+
       return res.status(201).json(newMatche);
     } catch (e) {
       next(e);

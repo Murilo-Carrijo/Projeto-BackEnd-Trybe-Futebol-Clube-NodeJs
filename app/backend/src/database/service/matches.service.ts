@@ -2,6 +2,7 @@ import IMatches from '../interface/IMatches';
 import MatchesModel from '../models/matches.model';
 import Teams from '../models/temas.model';
 import TeamsService from './teams.service';
+import Token from '../utils/Token';
 
 class MatchesService {
   teamsService: TeamsService;
@@ -36,6 +37,11 @@ class MatchesService {
       return false;
     }
     return true;
+  };
+
+  public tokenValidate = async (token: string) => {
+    const checkToken = await Token.decode(token);
+    return checkToken;
   };
 
   public addMatche = async (matche: IMatches): Promise<IMatches | null | boolean> => {
