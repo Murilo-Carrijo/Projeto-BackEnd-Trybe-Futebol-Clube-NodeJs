@@ -51,6 +51,20 @@ class MatchesService {
     const newMatche = await this.getByTeams(matche);
     return newMatche;
   };
+
+  public updateStatus = async (id: number) => {
+    const getById = await MatchesModel.findByPk(id);
+    if (!getById) return null;
+
+    if (getById) {
+      await MatchesModel.upsert({
+        id,
+        inProgress: 0,
+      });
+      return true;
+    }
+    return false;
+  };
 }
 
 export default MatchesService;

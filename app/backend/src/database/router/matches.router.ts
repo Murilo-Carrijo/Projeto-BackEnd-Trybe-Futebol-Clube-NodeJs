@@ -7,6 +7,7 @@ const matchesController = new MatchesController();
 
 router
   .get('/', (req, res, next) => matchesController.getAll(req, res, next))
-  .post('/', (req, res, next) => matchesController.addMatche(req, res, next));
+  .post('/', (req, res, next) => matchesController.addMatche(req, res, next))
+  .patch('/:id/finish', (req, res, next) => matchesController.updateStatus(req, res, next));
 
 export default router;

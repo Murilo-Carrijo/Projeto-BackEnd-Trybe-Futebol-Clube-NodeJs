@@ -45,6 +45,17 @@ class MatchesController {
       next(e);
     }
   };
+
+  public updateStatus = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    try {
+      const statusMatche = await this.service.updateStatus(Number(id));
+      if (!statusMatche) return res.status(404).json({ message: '"Matches" not found!' });
+      return res.status(200).json({ message: 'Finished' });
+    } catch (e) {
+      next(e);
+    }
+  };
 }
 
 export default MatchesController;
