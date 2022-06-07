@@ -26,12 +26,12 @@ class MatchesController {
   public addMatche = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const dataMatche = req.body;
-      const token = req.headers.authorization;
+      // const token = req.headers.authorization;
 
-      const checkToken = await this.service.tokenValidate(token as string);
-      if (!checkToken) {
-        return res.status(404).json({ message: 'Token is invalid!' });
-      }
+      // const checkToken = await this.service.tokenValidate(token as string);
+      // if (!checkToken) {
+      //   return res.status(401).json({ message: 'Token is invalid!' });
+      // }
 
       const newMatche = await this.service.addMatche(dataMatche);
       if (newMatche === null) {

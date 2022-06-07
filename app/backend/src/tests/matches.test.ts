@@ -62,4 +62,60 @@ describe('Verificando a rota Matches', () => {
 
     expect(chaiHttpResponse.status).to.be.equal(200);
   });
+
+  it('Adicionando uma nova partida', async () => {
+    chaiHttpResponse = await chai
+    .request(app)
+    .post('/matches')
+    .send({
+      homeTeam: 16,
+      awayTeam: 8,
+      homeTeamGoals: 5,
+      awayTeamGoals: 3,
+    });
+
+    expect(chaiHttpResponse.status).to.be.equal(201);
+  });
+
+  it('Não é possível adicionando uma nova partida com dois times iguais', async () => {
+    chaiHttpResponse = await chai
+    .request(app)
+    .post('/matches')
+    .send({
+      homeTeam: 8,
+      awayTeam: 8,
+      homeTeamGoals: 5,
+      awayTeamGoals: 3,
+    });
+
+    expect(chaiHttpResponse.status).to.be.equal(401);
+  });
+
+  it('Não é possível adicionando uma nova partida se o time não existir na tabela Teams', async () => {
+    chaiHttpResponse = await chai
+    .request(app)
+    .post('/matches')
+    .send({
+      homeTeam: 12345,
+      awayTeam: 8,
+      homeTeamGoals: 5,
+      awayTeamGoals: 3,
+    });
+
+    expect(chaiHttpResponse.status).to.be.equal(404);
+  });
+
+  // it('Finalizar uma partida', async () => {
+  //   chaiHttpResponse = await chai
+  //   .request(app)
+  //   .patch('/matches/:id/finish')
+  //   .send({
+  //     homeTeam: 16,
+  //     awayTeam: 8,
+  //     homeTeamGoals: 5,
+  //     awayTeamGoals: 3,
+  //   });
+
+  //   expect(chaiHttpResponse.status).to.be.equal(201);
+  // });
 });
