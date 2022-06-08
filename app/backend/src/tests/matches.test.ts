@@ -104,18 +104,4 @@ describe('Verificando a rota Matches', () => {
 
     expect(chaiHttpResponse.status).to.be.equal(404);
   });
-
-  // it('Finalizar uma partida', async () => {
-  //   chaiHttpResponse = await chai
-  //   .request(app)
-  //   .patch('/matches/:id/finish')
-  //   .send({
-  //     homeTeam: 16,
-  //     awayTeam: 8,
-  //     homeTeamGoals: 5,
-  //     awayTeamGoals: 3,
-  //   });
-
-  //   expect(chaiHttpResponse.status).to.be.equal(201);
-  // });
 });
